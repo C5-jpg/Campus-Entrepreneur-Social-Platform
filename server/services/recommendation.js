@@ -189,12 +189,19 @@ async function getDailyRecommendations(userId, limit = 10) {
         const recommendations = scoredCandidates.slice(0, limit);
         
         // 6. 保存推荐记录
-        for (const rec of recommendations) {
+        if (recommendations.length > 0) {
+            const values = [];
+            const placeholders = [];
+            for (const rec of recommendations) {
+                placeholders.push('(?, ?, ?, ?)');
+                values.push(userId, rec.id, rec.reason, today);
+            }
+
             await query(
                 `INSERT INTO daily_recommendations 
                  (user_id, recommended_user_id, reason, date) 
-                 VALUES (?, ?, ?, ?)`,
-                [userId, rec.id, rec.reason, today]
+                 VALUES ${placeholders.join(', ')}`,
+                values
             );
         }
         
