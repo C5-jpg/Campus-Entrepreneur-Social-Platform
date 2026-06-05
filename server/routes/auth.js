@@ -20,9 +20,7 @@ router.post('/send-code', (req, res) => {
     expiredAt: Date.now() + 10 * 60 * 1000
   });
   
-  console.log(`验证码 for ${email}: ${code}`);
-  
-  res.json({ message: '验证码已发送', code });
+  res.json({ message: '验证码已发送' });
 });
 
 // 登录/注册
