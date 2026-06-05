@@ -74,7 +74,7 @@ Page({
     try {
       // 方案1：尝试获取用户信息
       let avatarUrl = '';
-      let nickName = '';
+      let nickName = '微信用户';
       
       try {
         const profileRes = await wx.getUserProfile({
@@ -86,8 +86,6 @@ Page({
       } catch (profileErr) {
         // 用户拒绝授权，使用默认信息
         console.log('用户拒绝授权头像昵称，使用默认值');
-        avatarUrl = '';
-        nickName = '微信用户';
       }
       
       // 调用云函数登录
